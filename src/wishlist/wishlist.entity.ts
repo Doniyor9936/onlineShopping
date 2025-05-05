@@ -1,24 +1,27 @@
 import { Product } from "src/product/product.entity";
 import { User } from "src/user/user.entity";
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity("wishlist")
-
 export class Wishlist {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @Column()
+  userId: string;
 
-    @Column()
-    userId: string
+  @Column()
+  productId: string;
 
-    @Column()
-    productId: string
+  @ManyToOne(() => User, (user) => user.wishlist, { onDelete: "CASCADE" })
+  user: User;
 
-    @ManyToOne(() => User, (user) => user.wishlist, { onDelete: "CASCADE" })
-    user: User
-
-    @ManyToOne(() => Product, (user) => user.wishlist, { onDelete: "CASCADE" })
-    product: Product
-
+  @ManyToOne(() => Product, (user) => user.wishlist, { onDelete: "CASCADE" })
+  product: Product;
 }

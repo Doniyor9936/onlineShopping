@@ -1,52 +1,59 @@
 import { Product } from "src/product/product.entity";
 import { User } from "src/user/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 export enum OrderStatus {
-    PENDING = "pending",
-    PROCESS = "process",
-    COMPLETED = "completed",
-    CANCELLED = "cancelled",
+  PENDING = "pending",
+  PROCESS = "process",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
 }
-@Entity('orders')
+@Entity("orders")
 export class Order {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    userId: string
+  @Column()
+  userId: string;
 
-    @Column()
-    productId: string
+  @Column()
+  productId: string;
 
-    @Column()
-    userName: string
+  @Column()
+  userName: string;
 
-    @Column()
-    email: string
+  @Column()
+  email: string;
 
-    @Column()
-    address: string
+  @Column()
+  address: string;
 
-    @Column()
-    totalPrice: number
+  @Column()
+  totalPrice: number;
 
-    @Column({
-        type: "enum",
-        enum: OrderStatus,
-        default: OrderStatus.PENDING
-    })
-    status: string
+  @Column({
+    type: "enum",
+    enum: OrderStatus,
+    default: OrderStatus.PENDING,
+  })
+  status: string;
 
-    @ManyToOne(() => User, user => user.orders)
-    user: User
+  @ManyToOne(() => User, (user) => user.orders)
+  user: User;
 
-    @ManyToOne(() => Product, product => product.order)
-    product: Product;
+  @ManyToOne(() => Product, (product) => product.order)
+  product: Product;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
