@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Product } from "./product.entity";
 import { Repository } from "typeorm";
@@ -18,9 +13,7 @@ export class ProductService {
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
   ) { }
-  async createProduct(
-    dto: CreateProductDto,
-  ): Promise<{ message: string; product: Product }> {
+  async createProduct(dto: CreateProductDto): Promise<{ message: string; product: Product }> {
     const category = await this.categoryRepository.findOne({
       where: { id: dto.categoryId },
     });
@@ -34,9 +27,7 @@ export class ProductService {
     await this.productRepository.save(product);
     return { message: "succesfully product create", product: product };
   }
-  async getOneProduct(
-    id: string,
-  ): Promise<{ message: string; product: Product }> {
+  async getOneProduct(id: string): Promise<{ message: string; product: Product }> {
     try {
       const product = await this.productRepository.findOne({ where: { id } });
       if (!product) {
@@ -58,10 +49,7 @@ export class ProductService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async updateProduct(
-    id: string,
-    dto: UpdateProductDto,
-  ): Promise<{ message: string; product: Product }> {
+  async updateProduct(id: string, dto: UpdateProductDto): Promise<{ message: string; product: Product }> {
     try {
       const existsProduct = await this.productRepository.findOne({
         where: { id },
