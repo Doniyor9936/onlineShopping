@@ -1,10 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-  Post,
-} from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, Post } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Category } from "./category.entity";
 import { Repository } from "typeorm";
@@ -18,9 +12,7 @@ export class CategoryService {
     private categoryRepository: Repository<Category>,
   ) {}
 
-  async createCategory(
-    dto: CreateCategoryDto,
-  ): Promise<{ message: string; category: Category }> {
+  async createCategory(dto: CreateCategoryDto): Promise<{ message: string; category: Category }> {
     try {
       const existsCategory = await this.categoryRepository.findOne({
         where: { categoryName: dto.categoryName },
@@ -40,9 +32,7 @@ export class CategoryService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async getOneCategory(
-    id: string,
-  ): Promise<{ message: string; category: Category }> {
+  async getOneCategory(id: string): Promise<{ message: string; category: Category }> {
     try {
       const existsCategory = await this.categoryRepository.findOne({
         where: { id },
@@ -56,10 +46,7 @@ export class CategoryService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async updateCategory(
-    id: string,
-    dto: UpdateCategoryDto,
-  ): Promise<{ message: string; category: Category }> {
+  async updateCategory(id: string, dto: UpdateCategoryDto): Promise<{ message: string; category: Category }> {
     try {
       const existsCategory = await this.categoryRepository.findOne({
         where: { id },

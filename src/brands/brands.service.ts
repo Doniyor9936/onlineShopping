@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Brand } from "./brand.entity";
 import { Repository } from "typeorm";
@@ -11,13 +7,9 @@ import { UpdateBrandDto } from "./dto/update.brand.dto";
 
 @Injectable()
 export class BrandsService {
-  constructor(
-    @InjectRepository(Brand) private brandRepository: Repository<Brand>,
-  ) {}
+  constructor(@InjectRepository(Brand) private brandRepository: Repository<Brand>) {}
 
-  async createBrand(
-    dto: CreateBrandDto,
-  ): Promise<{ message: string; brand: Brand }> {
+  async createBrand(dto: CreateBrandDto): Promise<{ message: string; brand: Brand }> {
     try {
       const brand = await this.brandRepository.create({ ...dto });
       if (!brand) {
@@ -51,10 +43,7 @@ export class BrandsService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async updateBrand(
-    id: string,
-    dto: UpdateBrandDto,
-  ): Promise<{ message: string; brand: Brand }> {
+  async updateBrand(id: string, dto: UpdateBrandDto): Promise<{ message: string; brand: Brand }> {
     try {
       console.log("DTO:", dto);
 

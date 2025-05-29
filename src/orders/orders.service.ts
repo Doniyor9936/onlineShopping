@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Order } from "./orders.entity";
 import { Repository } from "typeorm";
@@ -18,11 +13,9 @@ export class OrdersService {
     @InjectRepository(Order) private orderRepository: Repository<Order>,
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Product) private productRepository: Repository<Product>,
-  ) {}
+  ) { }
 
-  async createOrder(
-    dto: CreateOrderDto,
-  ): Promise<{ message: string; order: Order }> {
+  async createOrder(dto: CreateOrderDto): Promise<{ message: string; order: Order }> {
     try {
       const existsUser = await this.userRepository.findOne({
         where: { id: dto.userId },
@@ -78,10 +71,7 @@ export class OrdersService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async updateOrder(
-    id: string,
-    dto: UpdateOrderDto,
-  ): Promise<{ message: string; order: Order }> {
+  async updateOrder(id: string, dto: UpdateOrderDto): Promise<{ message: string; order: Order }> {
     try {
       const existsOrders = await this.orderRepository.findOne({
         where: { id },

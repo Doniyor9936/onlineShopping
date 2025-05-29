@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { BrandsService } from "./brands.service";
 import { CreateBrandDto } from "./dto/create.brand.dto";
 import { Brand } from "./brand.entity";
@@ -17,15 +9,11 @@ export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
   @Post("/create")
-  async createBrand(
-    @Body() dto: CreateBrandDto,
-  ): Promise<{ message: string; brand: Brand }> {
+  async createBrand(@Body() dto: CreateBrandDto): Promise<{ message: string; brand: Brand }> {
     return this.brandsService.createBrand(dto);
   }
   @Get("/getOne/:id")
-  async getOneBrand(
-    @Param("id") id: string,
-  ): Promise<{ message: string; brand: Brand }> {
+  async getOneBrand(@Param("id") id: string): Promise<{ message: string; brand: Brand }> {
     return this.brandsService.getOneBrand(id);
   }
   @Get("/get")
@@ -33,10 +21,7 @@ export class BrandsController {
     return this.brandsService.getAllBrand();
   }
   @Put("/edit/:id")
-  async updateBrand(
-    @Param("id") id: string,
-    @Body() dto: UpdateBrandDto,
-  ): Promise<{ message: string; brand: Brand }> {
+  async updateBrand(@Param("id") id: string, @Body() dto: UpdateBrandDto): Promise<{ message: string; brand: Brand }> {
     return this.brandsService.updateBrand(id, dto);
   }
   @Delete("/delete/:id")

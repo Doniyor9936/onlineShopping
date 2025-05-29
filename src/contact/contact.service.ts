@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Contact } from "./contact.entity";
 import { Repository } from "typeorm";
@@ -18,9 +13,7 @@ export class ContactService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async createContact(
-    dto: CreateContactDto,
-  ): Promise<{ message: string; contact: Contact }> {
+  async createContact(dto: CreateContactDto): Promise<{ message: string; contact: Contact }> {
     try {
       const existsUser = await this.userRepository.findOne({
         where: { email: dto.email },
@@ -39,13 +32,9 @@ export class ContactService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async getOneContact(
-    id: string,
-  ): Promise<{ message: string; contact: Contact }> {
+  async getOneContact(id: string): Promise<{ message: string; contact: Contact }> {
     try {
-      const existsContact = await this.contactRepository.findOne({
-        where: { id },
-      });
+      const existsContact = await this.contactRepository.findOne({ where: { id } });
       if (!existsContact) {
         throw new NotFoundException("contact not found");
       }
@@ -67,10 +56,7 @@ export class ContactService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async updateContact(
-    id: string,
-    dto: UpdateContactDto,
-  ): Promise<{ message: string; contact: Contact }> {
+  async updateContact(id: string, dto: UpdateContactDto): Promise<{ message: string; contact: Contact }> {
     try {
       const existsContact = await this.contactRepository.findOne({
         where: { id },

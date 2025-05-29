@@ -1,10 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-  UnauthorizedException,
-} from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Cart } from "./cart.entity";
 import { Repository } from "typeorm";
@@ -15,13 +9,9 @@ import { UpdateCartDto } from "./dto/update.cart.dto";
 
 @Injectable()
 export class CartService {
-  constructor(
-    @InjectRepository(Cart) private cartRepository: Repository<Cart>,
-  ) {}
+  constructor(@InjectRepository(Cart) private cartRepository: Repository<Cart>) {}
 
-  async createCart(
-    dto: CreateCartDto,
-  ): Promise<{ message: string; cart: Cart }> {
+  async createCart(dto: CreateCartDto): Promise<{ message: string; cart: Cart }> {
     try {
       const createCart = this.cartRepository.create({ ...dto });
       await this.cartRepository.save(createCart);
@@ -53,10 +43,7 @@ export class CartService {
       throw new InternalServerErrorException("server error");
     }
   }
-  async editCart(
-    id: string,
-    dto: UpdateCartDto,
-  ): Promise<{ message: string; cart: Cart }> {
+  async editCart(id: string, dto: UpdateCartDto): Promise<{ message: string; cart: Cart }> {
     try {
       const existCart = await this.cartRepository.findOne({ where: { id } });
       if (!existCart) {
