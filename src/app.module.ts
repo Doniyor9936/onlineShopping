@@ -26,6 +26,7 @@ import { ContactModule } from "./contact/contact.module";
       entities: [User, Category, Product],
       synchronize: true,
       autoLoadEntities: true,
+
     }),
     UserModule,
     CategoryModule,
