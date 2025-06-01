@@ -18,15 +18,11 @@ import { ContactModule } from "./contact/contact.module";
     ConfigModule.forRoot({ envFilePath: ".env", isGlobal: true }),
     TypeOrmModule.forRoot({
       type: "postgres",
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      host: process.env.DB_HOST,
-      database: process.env.DB_DATABASE,
-      entities: [User, Category, Product],
-      synchronize: true,
-      autoLoadEntities: true,
-
+      url: process.env.db_url,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+      synchronize: false,
     }),
     UserModule,
     CategoryModule,
